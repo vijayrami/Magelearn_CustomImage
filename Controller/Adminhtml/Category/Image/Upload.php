@@ -1,8 +1,8 @@
 <?php
 namespace Magelearn\CustomImage\Controller\Adminhtml\Category\Image;
- 
+
 use Magento\Framework\Controller\ResultFactory;
- 
+
 /**
  * Category Image Upload Controller
  */
@@ -14,40 +14,40 @@ class Upload extends \Magento\Backend\App\Action
      * @var \Magento\Catalog\Model\ImageUploader
      */
     protected $imageUploader;
- 
+
     /**
      * Uploader factory
      *
      * @var \Magento\MediaStorage\Model\File\UploaderFactory
      */
     private $uploaderFactory;
- 
+
     /**
      * Media directory object (writable).
      *
      * @var \Magento\Framework\Filesystem\Directory\WriteInterface
      */
     protected $mediaDirectory;
- 
+
     /**
      * Store manager
      *
      * @var \Magento\Store\Model\StoreManagerInterface
      */
     protected $storeManager;
- 
+
     /**
      * Core file storage database
      *
      * @var \Magento\MediaStorage\Helper\File\Storage\Database
      */
     protected $coreFileStorageDatabase;
- 
+
     /**
      * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
- 
+
     /**
      * Upload constructor.
      *
@@ -62,16 +62,16 @@ class Upload extends \Magento\Backend\App\Action
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\MediaStorage\Helper\File\Storage\Database $coreFileStorageDatabase,
         \Psr\Log\LoggerInterface $logger
-    ) {
-        parent::__construct($context);
-        $this->imageUploader = $imageUploader;
-        $this->uploaderFactory = $uploaderFactory;
-        $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
-        $this->storeManager = $storeManager;
-        $this->coreFileStorageDatabase = $coreFileStorageDatabase;
-        $this->logger = $logger;
+        ) {
+            parent::__construct($context);
+            $this->imageUploader = $imageUploader;
+            $this->uploaderFactory = $uploaderFactory;
+            $this->mediaDirectory = $filesystem->getDirectoryWrite(\Magento\Framework\App\Filesystem\DirectoryList::MEDIA);
+            $this->storeManager = $storeManager;
+            $this->coreFileStorageDatabase = $coreFileStorageDatabase;
+            $this->logger = $logger;
     }
- 
+
     /**
      * Check admin permissions for this controller
      *
@@ -81,7 +81,7 @@ class Upload extends \Magento\Backend\App\Action
     {
         return $this->_authorization->isAllowed('Magelearn_CustomImage::category');
     }
- 
+
     /**
      * Upload file controller action
      *
@@ -90,10 +90,10 @@ class Upload extends \Magento\Backend\App\Action
     public function execute()
     {
         $imageId = $this->_request->getParam('param_name', 'custom_image');
- 
+
         try {
             $result = $this->imageUploader->saveFileToTmpDir($imageId);
- 
+
             $result['cookie'] = [
                 'name' => $this->_getSession()->getName(),
                 'value' => $this->_getSession()->getSessionId(),
