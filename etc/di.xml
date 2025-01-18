@@ -17,6 +17,8 @@
         </argument>
     </arguments>
 </virtualType>
-<preference for="Magento\Catalog\Model\Category\DataProvider" type="Magelearn\CustomImage\Model\Category\DataProvider" />
+<type name="Magento\Catalog\Model\Category\DataProvider">
+    <plugin name="custom_category_data" type="Magelearn\CustomImage\Plugin\CategoryDataProviderPlugin" />
+</type>
 <preference for="Magento\Theme\Block\Html\Topmenu" type="Magelearn\CustomImage\Block\Html\Topmenu" />
 </config>
