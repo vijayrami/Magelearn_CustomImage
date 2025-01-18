@@ -1,5 +1,5 @@
 {
-    "name": "magelearn/module-customImage",
+    "name": "magelearn/module-customimage",
     "description": "Magento2 image attachment in category add/edit admin form and display image on category page",
     "type": "magento2-module",
     "license": "OSL-3.0",
