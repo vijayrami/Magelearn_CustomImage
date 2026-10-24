@@ -8,8 +8,9 @@
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="2columns-left" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <body>
         <referenceContainer name="category.view.container">
-            <block class="Magelearn\CustomImage\Block\Image" name="magelearn_category_image" template="Magelearn_CustomImage::image.phtml">
+            <block class="Magento\Framework\View\Element\Template" name="magelearn.custom.image" template="Magelearn_CustomImage::image.phtml">
                 <arguments>
+                    <argument name="view_model" xsi:type="object">Magelearn\CustomImage\ViewModel\CategoryImage</argument>
                     <argument name="image_code" xsi:type="string">custom_image</argument>
                     <argument name="css_class" xsi:type="string">custom_image</argument>
                 </arguments>

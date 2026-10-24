@@ -1,26 +1,32 @@
 <?php
-/**
- * Copyright © 2013-2017 Magento, Inc. All rights reserved.
- * See COPYING.txt for license details.
- */
 
-// @codingStandardsIgnoreFile
+declare(strict_types=1);
 
-?>
-<?php
-/**
- * Category image template
- *
- * @var $block \Magelearn\CustomImage\Block\Image
- */
-?>
-<?php
-$_helper    = $this->helper('Magento\Catalog\Helper\Output');
-$_category = $block->getCurrentCategory();
-$_imgHtml   = '';
-if ($_imgUrl = $block->getImageUrl()) {
-    $_imgHtml = '<div class="' . $block->getCssClass() . '"><img src="' . $_imgUrl . '" alt="' . $block->escapeHtml($_category->getName()) . '" title="' . $block->escapeHtml($_category->getName()) . '"/></div>';
-    $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
-    /* @escapeNotVerified */ echo $_imgHtml;
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magelearn\CustomImage\ViewModel\CategoryImage $viewModel */
+
+$viewModel = $block->getViewModel();
+$category = $viewModel->getCategory();
+
+if (!$category) {
+    return;
 }
+
+$imageCode = (string) $block->getData('image_code');
+$imageUrl = $viewModel->getImageUrl($imageCode);
+$cssClass = (string) $block->getData('css_class');
+
+if (!$imageUrl) {
+    return;
+}
+
+$categoryName = $block->escapeHtml($category->getName());
 ?>
+
+<div class="<?= $block->escapeHtmlAttr($cssClass) ?>">
+    <img
+        src="<?= $block->escapeUrl($imageUrl) ?>"
+        alt="<?= $categoryName ?>"
+        title="<?= $categoryName ?>"
+    />
+</div>
